@@ -1,26 +1,7 @@
 #!/bin/bash
-
 ######### SASS AUTOCOMPILER ################
-#
-# First it checks if you have Sass and inotify-tools installed
-# You can then pass it a folder path to watch for changes as the first parameter
-# You can pass an optional second parameter for the output directory where the CSS file will go once compiled
-# If you pass . as the second parameter, make the subdirectories inside the current director you are in
-# and output the file there.
-#
-### Ex: ./sassy_demon.sh ../scss/ ../../css
-####### If there are changes made to ../scss/test/files/test_file.scss, it will output to
-####### It will output to ../../css/test/files/test_file.css
-#
-### If you are currently in your home directory (ex: pwd = /home/justin)
-####### ./sassy_demon.sh /www/scss/files .
-####### If there is a change made to /www/scss/files/test/files/test_file.scss
-####### It will output to /home/justin/test/files/test_file.css
-#
+# https://github.com/ghostanza/sassydemon/
 #########################################################################
-
-############## MAIN PROGRAM ################
-
 has_sass=$(which sass);
 has_inotifywait=$(which inotifywait);
 track_subs=false;
