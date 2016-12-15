@@ -25,6 +25,8 @@ _NOTE: Because the watcher is using a `-r` flag behind the scenes to look recurs
 When you make a change, the script will display the following:
 ```
 ********
+scss/test/files/test_file.scss was modified
+
 COMPILING: scss/test/files/test_file.scss
 OUTPUT: scss/test/files/test_file.css
 
@@ -45,6 +47,8 @@ WILL SEND OUTPUT TO: css/
 Setting up watches.  Beware: since -r was given, this may take a while!
 Watches established.
 ********
+scss/test/files/test_file.scss was modified
+
 COMPILING: scss/test/files/test_file.scss
 OUTPUT: css/test_file.css
 
@@ -66,6 +70,8 @@ WILL SEND OUTPUT TO: css/
 Setting up watches.  Beware: since -r was given, this may take a while!
 Watches established.
 ********
+scss/test/files/test_file.scss was modified
+
 COMPILING: scss/test/files/test_file.scss
 OUTPUT: css/test_file.css
 
@@ -84,6 +90,8 @@ OUTPUT WILL CONTAIN SUBDIRECTORIES
 Setting up watches.  Beware: since -r was given, this may take a while!
 Watches established.
 ********
+scss/test/files/test_file.scss was modified
+
 COMPILING: scss/test/files/test_file.scss
 OUTPUT: css/test/files/test_file.css
 
@@ -101,6 +109,8 @@ WILL SEND OUTPUT TO: scss/
 Setting up watches.  Beware: since -r was given, this may take a while!
 Watches established.
 ********
+scss/test/files/test_file.scss was modified
+
 COMPILING: scss/test/files/test_file.scss
 OUTPUT: scss/test/files/test_file.css
 
