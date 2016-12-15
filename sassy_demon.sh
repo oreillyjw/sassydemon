@@ -113,7 +113,7 @@ else
               output_path=${output_dir};
           fi
             mkdir -p $output_path;
-            echo -e "********\nCOMPILING: ${GREEN}${path}${filename}.scss${NC} \nOUTPUT: ${GREEN}${output_path}${filename}.css${NC}\n";
+            echo -e "********\n${GREEN}${path}${filename}.scss was modified${NC}\n\nCOMPILING: ${GREEN}${path}${filename}.scss${NC} \nOUTPUT: ${GREEN}${output_path}${filename}.css${NC}\n";
             sass --sourcemap=none --cache=false ${path}${filename}.scss ${output_path}${filename}.css;
             #sass ${path}${filename}.scss ${output_path}${filename}.css;
             echo -e "done.\n**********";
