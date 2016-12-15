@@ -12,7 +12,7 @@ The script runs in "monitor mode", so you can leave it running and it will conti
 
 This will have the script watch the `scss/` directory for changes. Since no output directory was specified, the CSS file will go to the same place
 ```
- /bin/bash sassy_demon.sh -w scss/
+$ /bin/bash sassy_demon.sh -w scss/
 --------------------------
 WATCHING DIRECTORY: scss/
 WILL SEND OUTPUT TO: scss/
@@ -58,7 +58,7 @@ If you want the output to maintain the same subdirectories as the changed file, 
 
 #### WITHOUT THE -S FLAG (DEFAULT WHEN OUTPUT IS SPECIFIED)
 ```
-/bin/bash sassy_demon.sh -w scss/ -o css/
+$ /bin/bash sassy_demon.sh -w scss/ -o css/
 --------------------------
 WATCHING DIRECTORY: scss/
 WILL SEND OUTPUT TO: css/
@@ -74,7 +74,7 @@ done.
 ```
 #### WITH THE -S FLAG (DEFAULT WHEN OUTPUT IS NOT SPECIFIED)
 ```
-/bin/bash sassy_demon.sh -w scss/ -o css/ -s
+$ /bin/bash sassy_demon.sh -w scss/ -o css/ -s
 --------------------------
 WATCHING DIRECTORY: scss/
 WILL SEND OUTPUT TO: css/
@@ -93,7 +93,7 @@ done.
 
 _Notice how the script maintains the subdirectories without the need for the `-s` flag if only a watch directory is specified_
 ```
-bin/bash sassy_demon.sh -w scss/
+$ bin/bash sassy_demon.sh -w scss/
 --------------------------
 WATCHING DIRECTORY: scss/
 WILL SEND OUTPUT TO: scss/
