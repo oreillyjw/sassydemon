@@ -1,6 +1,6 @@
 # sassydemon
 ## sass autocompiler shell script
-This script uses `inotify-tools` to monitor a specified `watch directory` for any changes to `.scss` files. It then runs `sass` on those files to compile it into `.css` and output them into an (optional) output directory. _If no output directory is specified, it will output them to the same directory as the changed `.scss` file_
+This script uses `inotify-tools` to monitor a specified `watch directory` for any changes to `.scss` files. It then runs `sass` on those files to compile it into `.css` and put the resulting CSS file into an (optional) output directory. _If no output directory is specified, it will output them to the same directory as the changed `.scss` file_
 
 This eliminates the need to run `sass <file> <output_file>` every time you want to compile sass; it will do it on the fly for you whenever it detects a change in a scss file (in your watch directory). 
 
