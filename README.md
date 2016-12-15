@@ -16,7 +16,7 @@ WILL SEND OUTPUT TO: scss/
 Setting up watches.  Beware: since -r was given, this may take a while!
 Watches established.
 ```
-_NOTE: Because the watcher is using a `-r` flag behind the scenes to look recursively for changes, `inotify` gives the warning that it may take a while. Once the watcher is established, it will show `Watches established.`, meaning it is running and watching your files
+_NOTE: Because the watcher is using a `-r` flag behind the scenes to look recursively for changes, `inotify` gives the warning that it may take a while. Once the watcher is established, it will show `Watches established.`, meaning it is running and watching your files_
 
 When you make a change, the script will display the following:
 ```
@@ -87,7 +87,7 @@ done.
 **********
 ```
 
-_Notice how the script maintains the subdirectories without the need for the `-s` flag if only a watch directory is specified
+_Notice how the script maintains the subdirectories without the need for the `-s` flag if only a watch directory is specified_
 ```
 bin/bash sassy_demon.sh -w scss/
 --------------------------
