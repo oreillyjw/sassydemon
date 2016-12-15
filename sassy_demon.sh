@@ -14,7 +14,7 @@ CYAN='\033[0;36m';
 NC='\033[0m';
 
 function HELP {
-  echo -e "${CYAN}************ HELP DOCUMENTATION FOR SASSY_DEMON.SH ************${NC}\n";
+  echo -e "${CYAN}************ HELP DOCUMENTATION FOR ${SCRIPT} ************${NC}\n";
   echo -e "Dependencies:\t${SCRIPT} requires ${CYAN}inotify-tools${NC} and ${CYAN}sass${NC} to be installed\n"
   echo -e "Basic Usage:\t${GREEN}./${SCRIPT} -w scss/${NC}\nThis will set ${SCRIPT} to watch the ${CYAN}scss/${NC} directory for changes.\n";
   echo -e "Using Output Directory:\t${GREEN}./${SCRIPT} -w scss/ -o css/${NC}\nThis will set ${SCRIPT}to watch the ${CYAN}scss/${NC} directory for changes\nand output the compiled CSS file to the ${CYAN}css/${NC} directory.\n";
