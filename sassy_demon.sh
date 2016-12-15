@@ -23,7 +23,7 @@
 
 has_sass=$(which sass);
 has_inotifywait=$(which inotifywait);
-nosubs=false;
+track_subs=false;
 watch_dir='';
 output_dir='';
 SCRIPT=$(basename ${BASH_SOURCE});
@@ -40,14 +40,14 @@ function HELP {
   echo -e "${CYAN}\n********* FLAGS **********${NC}\n";
   echo -e "${RED}(REQUIRED)${NC} [ ${GREEN}-w <path>${NC} ] is used to set the directory you want to watch. \nEx: ${GREEN}./${SCRIPT} -w scss/${NC} will set ${SCRIPT} to watch the ${CYAN}scss/${NC}\n";
   echo -e "[ ${GREEN}-o <path>${NC} ] is used to set the directory you want to output to. \nEx: ${GREEN}./${SCRIPT} -w scss/ -o css/${NC} will set ${SCRIPT} to watch the ${CYAN}scss/${NC} but will output the CSS file to ${CYAN}css/${NC}\n${RED}NOTE:${NC} if no output directory is declared, ${SCRIPT} will output the CSS file to the same directory you are watching.\n";
-  echo -e "[ ${GREEN}-n${NC} ] is the ${CYAN}'no subdirectories'${NC} flag.\nThe program runs recursively, so without this flag, it will maintain the subdirectory path\nEx: If you're watching ${CYAN}scss/${NC} and your ouput directory is ${CYAN}css/${NC};\nif the file changed is ${CYAN}scss/test/files/testfile.scss${NC} then the CSS file will go to ${CYAN}css/test/files/testfile.css${NC}\nand will create the subdirectories if they do not already exist\nWith the ${GREEN}-n${NC} flag, the file would go to ${CYAN}/css/testfile.css${NC}\n";
+  echo -e "[ ${GREEN}-s${NC} ] is the ${CYAN}'track subdirectories'${NC} flag.\nThe program runs recursively.  Without this flag, the output will just go directly to your output directory and not maintain the full path of the change.\nEx: If you're watching ${CYAN}scss/${NC} and your ouput directory is ${CYAN}css/${NC};\nif the file changed is ${CYAN}scss/test/files/testfile.scss${NC} then the CSS file will go to ${CYAN}css/testfile.css${NC}\nWith the ${GREEN}-s${NC} flag, the file would go to ${CYAN}/css/test/files/testfile.css${NC} and create any of the directories if they do not exist\n";
    echo -e "[ ${GREEN}-h${NC} ] will bring up this help documentation.\n";
 }
 
 while getopts :shw:o: FLAG; do
   case $FLAG in
     s)
-      nosubs=true
+      track_subs=true
       ;;
     w)
       watch_dir=$OPTARG
@@ -91,9 +91,9 @@ else
      output_dir=${watch_dir};
   fi
   echo -e "--------------------------\nWATCHING DIRECTORY: ${GREEN}${watch_dir}${NC}\nWILL SEND OUTPUT TO: ${GREEN}${output_dir}${NC}\n";
-  if [ $nosubs = true ]
+  if [ $track_subs = true ]
   then
-  echo -e "'NO SUBDIRECTORIES' flag being used\n";
+  echo -e "${GREEN}OUTPUT WILL CONTAIN SUBDIRECTORIES${NC}\n";
   fi
   inotifywait -mr -e modify $watch_dir |
     while read path action file; do
@@ -108,11 +108,11 @@ else
             elif [ "$output_dir" == '.' ]
             then
                 output_path=${path#$watch_dir};
-            elif [ $nosubs = true ]
+            elif [ $track_subs = true ]
             then
-                output_path=${output_dir};
-            else
                 output_path=${output_dir}${path#$watch_dir};
+            else
+                output_path=${output_dir};
             fi
             mkdir -p $output_path;
             echo -e "********\nCOMPILING: ${GREEN}${path}${filename}.scss${NC} \nOUTPUT: ${GREEN}${output_path}${filename}.css${NC}\n";
