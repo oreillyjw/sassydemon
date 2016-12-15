@@ -47,7 +47,7 @@ OUTPUT: css/test_file.css
 done.
 **********
 ```
-_NOTE: When you specify an output directory, the CSS file will just go straight to that directory. If you want to maintain the subdirectories of the file changes, use the `-s` flag.
+_NOTE: When you specify an output directory, the CSS file will just go straight to that directory. If you want to maintain the subdirectories of the file changes, use the `-s` flag._
 
 ### Maintain Subdirectories
 If you want the output to maintain the same subdirectories as the changed file, you can use the `-s` flag. This flag will maintain the subdirectories and make any directories that do not exist before putting the file there. _NOTE: If you do not specify an output directory, the script will maintain the subdirectories by default, so you do not need to use this flag_
