@@ -107,3 +107,9 @@ done.
 ## DEPENDENCIES
 - This script requires `inotify-tools` and `sass` to be installed.
 - The script also uses the `sass --sourcemap=none --cache=false` command, so make sure you have those. If your version of sass does not support those flags, there is a commented out `sass` command in the script that does not use them, so you can use that instead.
+
+## FLAGS
+- `-w <path>` (required) - sets the watch directory
+- `-o <path>` - sets the output directory
+- `-s` - if an output path is specified, this will maintain the subdirectories of the changed file into the output directory
+- `-h` - display the help documentation
