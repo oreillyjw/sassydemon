@@ -97,29 +97,26 @@ else
   fi
   inotifywait -mr -e modify $watch_dir |
     while read path action file; do
-      if [[ ${file: -4} != ".swp" ]]
+      if [[ ${file: -5} == ".scss" ]]
       then
-         if [[ ${file: -4} != ".css" ]]
-         then
-            filename=${file%.*};
-            if [[ $watch_dir -ef $output_dir ]]
-            then
-                output_path=$path;
-            elif [ "$output_dir" == '.' ]
-            then
-                output_path=${path#$watch_dir};
-            elif [ $track_subs = true ]
-            then
-                output_path=${output_dir}${path#$watch_dir};
-            else
-                output_path=${output_dir};
-            fi
+          filename=${file%.*};
+          if [[ $watch_dir -ef $output_dir ]]
+          then
+              output_path=$path;
+          elif [ "$output_dir" == '.' ]
+          then
+              output_path=${path#$watch_dir};
+          elif [ $track_subs = true ]
+          then
+              output_path=${output_dir}${path#$watch_dir};
+          else
+              output_path=${output_dir};
+          fi
             mkdir -p $output_path;
             echo -e "********\nCOMPILING: ${GREEN}${path}${filename}.scss${NC} \nOUTPUT: ${GREEN}${output_path}${filename}.css${NC}\n";
             sass --sourcemap=none --cache=false ${path}${filename}.scss ${output_path}${filename}.css;
             #sass ${path}${filename}.scss ${output_path}${filename}.css;
             echo -e "done.\n**********";
-         fi
       fi
     done
 fi
