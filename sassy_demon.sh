@@ -1,6 +1,7 @@
 #!/bin/bash
 ######### SASS AUTOCOMPILER ################
 # https://github.com/ghostanza/sassydemon/
+# Updates: Add detection of updating scss partials
 #########################################################################
 has_sass=$(which sass);
 has_inotifywait=$(which inotifywait);
@@ -81,23 +82,65 @@ else
       if [[ ${file: -5} == ".scss" ]]
       then
           filename=${file%.*};
-          if [[ $watch_dir -ef $output_dir ]]
-          then
-              output_path=$path;
-          elif [ "$output_dir" == '.' ]
-          then
-              output_path=${path#$watch_dir};
-          elif [ $track_subs = true ]
-          then
-              output_path=${output_dir}${path#$watch_dir};
-          else
-              output_path=${output_dir};
-          fi
-            mkdir -p $output_path;
-            echo -e "********\n${GREEN}${path}${filename}.scss was modified${NC}\n\nCOMPILING: ${GREEN}${path}${filename}.scss${NC} \nOUTPUT: ${GREEN}${output_path}${filename}.css${NC}\n";
-            sass --sourcemap=none --cache=false ${path}${filename}.scss ${output_path}${filename}.css;
-            #sass ${path}${filename}.scss ${output_path}${filename}.css;
-            echo -e "done.\n**********";
+          all_partials=$(find /www/css -name '_*.scss' -print | rev | cut -d'/' -f2- | rev)
+	  all_partials_string=""
+	  for partial_path in $all_partials; do
+		all_partials_string="$all_partials_string --load-path $partial_path"
+	  done
+
+
+	  if [[ $filename == \_* ]]
+	  then
+		echo "It looks like you updated a partial scss file";
+	        echo "Finding all files that import this partial.";
+		substring=$(echo $filename | cut -d'_' -f2);
+		echo $substring
+		files=$(egrep -l -R "@import.*'$substring'" "$watch_dir")
+
+		for file_path_full in $files
+		do
+			filename=$(echo $file_path_full | rev | cut -d'/' -f 1 | rev | cut -d'.' -f1)
+			path=$(echo $file_path_full | rev | cut -d'/' -f 2- | rev)
+			path="$path/"
+
+          		if [[ $watch_dir -ef $output_dir ]]
+          		then
+              			output_path=$path;
+          		elif [ "$output_dir" == '.' ]
+          		then
+              			output_path=${path#$watch_dir};
+          		elif [ $track_subs = true ]
+          		then
+              			output_path=${output_dir}${path#$watch_dir};
+          		else
+              			output_path=${output_dir};
+          		fi
+
+			          mkdir -p $output_path;
+            		echo -e "********\n${GREEN}${path}${filename}.scss was modified${NC}\n\nCOMPILING: ${GREEN}${path}${filename}.scss${NC} \nOUTPUT: ${GREEN}${output_path}${filename}.css${NC}\n";
+            		sass --sourcemap=none --cache=false${all_partials_string} ${path}${filename}.scss ${output_path}${filename}.css;
+		done
+
+            	echo -e "done.\n**********";
+	  else
+          	if [[ $watch_dir -ef $output_dir ]]
+          	then
+              		output_path=$path;
+          	elif [ "$output_dir" == '.' ]
+          	then
+              		output_path=${path#$watch_dir};
+          	elif [ $track_subs = true ]
+          	then
+              		output_path=${output_dir}${path#$watch_dir};
+          	else
+              		output_path=${output_dir};
+          	fi
+
+		mkdir -p $output_path;
+            	echo -e "********\n${GREEN}${path}${filename}.scss was modified${NC}\n\nCOMPILING: ${GREEN}${path}${filename}.scss${NC} \nOUTPUT: ${GREEN}${output_path}${filename}.css${NC}\n";
+            	sass --sourcemap=none --cache=false${all_partials_string} ${path}${filename}.scss ${output_path}${filename}.css;
+            	echo -e "done.\n**********";
+	  fi
       fi
     done
 fi
